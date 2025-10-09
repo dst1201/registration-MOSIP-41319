@@ -21,9 +21,9 @@ public class ReprocessorVerticalServiceImpl implements ReprocessorVerticalServic
 
     @Override
     @Async
-    public CompletableFuture<List<InternalRegistrationStatusDto>> fetchUnProcessedPackets(List<String> processList, Integer fetchSize, long elapseTime, Integer reprocessCount, List<String> status, List<String> excludeStageNames) {
+    public CompletableFuture<List<InternalRegistrationStatusDto>> fetchUnProcessedPackets(List<String> processList, Integer fetchSize, long elapseTime, Integer reprocessCount, List<String> status, List<String> excludeStageNames, List<String> skipRegIds) {
         List<InternalRegistrationStatusDto> result =  registrationStatusService.getUnProcessedPackets(processList, fetchSize, elapseTime,
-                reprocessCount, status, excludeStageNames);
+                reprocessCount, status, excludeStageNames, skipRegIds);
         return CompletableFuture.completedFuture(result != null ? result : Collections.emptyList());
     }
 }
