@@ -380,7 +380,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 								},sendExecutor).exceptionally(ex -> {
 									regProcLogger.error(LoggerFileConstant.SESSIONID.toString(),
 											description.getCode() + " -- ",
-											PlatformErrorMessages.RPR_RGS_REGISTRATION_TABLE_NOT_ACCESSIBLE.getMessage(), ex.toString());									return null;
+											PlatformErrorMessages.RPR_PKR_UNKNOWN_EXCEPTION.getMessage(), ex.toString());									return null;
 								})).collect(Collectors.toList());
 
 				CompletableFuture.allOf(sendTasks.toArray(new CompletableFuture[0])).join();
@@ -541,11 +541,13 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 					regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), "",
 							"Status used to fetch Records Process " + key + " is " + statusValList);
 
-					int recordFetchCount = recordFetchSize - packetCacheMap.get(key).size();
+					Deque<InternalRegistrationStatusDto> cacheList = packetCacheMap.get(key);
+					int recordFetchCount = recordFetchSize - (cacheList != null ?  cacheList.size() : 0);
 					regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), "",
 							"Record Fetch Count for process " + key + " is " + recordFetchCount);
 
 					// Fetch unprocessed packets
+
 					return reprocessorVerticalService.fetchUnProcessedPackets(processList, recordFetchCount, elapseTime,
 							reprocessCount, (!statusValList.isEmpty() ? statusValList : statusList), reprocessExcludeStageNames)
 							.thenAccept(result -> {
