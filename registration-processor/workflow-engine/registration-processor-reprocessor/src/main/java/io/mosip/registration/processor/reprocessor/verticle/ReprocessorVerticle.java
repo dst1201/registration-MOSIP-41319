@@ -550,6 +550,9 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 					// Fetch unprocessed packets
 
 					List<String> skipRegIdList = cacheList != null && !cacheList.isEmpty() ? cacheList.stream().map(e -> e.getRegistrationId()).collect(Collectors.toList()) : Collections.emptyList();
+
+					if(skipRegIdList.isEmpty()) skipRegIdList.add("");
+
 					return reprocessorVerticalService.fetchUnProcessedPackets(processList, recordFetchCount, elapseTime,
 							reprocessCount, (!statusValList.isEmpty() ? statusValList : statusList), reprocessExcludeStageNames, skipRegIdList)
 							.thenAccept(result -> {
