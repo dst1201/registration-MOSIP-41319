@@ -272,10 +272,13 @@ public class RegistrationStatusDao {
 
 		if(statusList != null && !statusList.isEmpty()) {
 			processList.forEach(key -> {
+				if(statusList != null && !statusList.isEmpty())
+					statusSet.addAll(statusList);
+
 				if(statusCodes.containsKey(key)) {
-					if(statusList != null && !statusList.isEmpty())
-						statusSet.addAll(statusList);
 					statusCodes.get(key).addAll(statusSet);
+				} else {
+					statusCodes.put(key, statusSet);
 				}
 			});
 
