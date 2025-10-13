@@ -288,7 +288,7 @@ public class RegistrationStatusDao {
 		} else {
 			Set<String> populatedStatus = new HashSet<>();
 			processList.forEach(key -> {
-				populatedStatus.addAll(statusCodes.get(key));
+				populatedStatus.addAll(statusCodes.get(key) != null ? statusCodes.get(key) : statusSet);
 			});
 			List<String> status = new ArrayList<>(populatedStatus);
 			return registrationStatusRepositary.getUnProcessedPackets(processList, trnStatusList, reprocessCount, timeDifference,
