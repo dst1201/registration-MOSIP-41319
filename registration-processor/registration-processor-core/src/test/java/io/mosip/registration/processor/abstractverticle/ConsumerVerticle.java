@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import brave.Tracing;
 import io.mosip.registration.processor.core.tracing.EventTracingHandler;
+import io.mosip.registration.processor.core.util.PropertiesUtil;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.logging.SLF4JLogDelegateFactory;
 import org.assertj.core.util.Objects;
@@ -29,7 +30,6 @@ public class ConsumerVerticle extends MosipVerticleManager {
 
 	public void start() throws UnsupportedEventBusTypeException {
 		System.setProperty("org.vertx.logger-delegate-factory-class-name", SLF4JLogDelegateFactory.class.getName());
-
 		mosipEventBusFactory = new MosipEventBusFactory();
 		mosipEventBusFactory.setTracing(Tracing.newBuilder().build());
 		this.mosipEventBus = mosipEventBusFactory.getEventBus(vertx, "vertx", getPropertyPrefix());
@@ -41,7 +41,6 @@ public class ConsumerVerticle extends MosipVerticleManager {
 		this.messageDTO.setInternalError(false);
 		this.messageDTO.setReg_type(RegistrationType.NEW.name());
 		this.busOutHaltAddresses = new ArrayList<String>();
-
 		//this.consume(mosipEventBus, MessageBusAddress.PACKET_VALIDATOR_BUS_IN);
 		//this.consumeAndSend(mosipEventBus, MessageBusAddress.PACKET_VALIDATOR_BUS_OUT, MessageBusAddress.RETRY_BUS);
 	}
@@ -66,7 +65,8 @@ public class ConsumerVerticle extends MosipVerticleManager {
 		URL url=loader.getResource("cluster.xml");
 		return url;
 	}
-	
+
+
 	@Override
 	public Integer getEventBusPort() {
 		return 5711;
@@ -82,4 +82,8 @@ public class ConsumerVerticle extends MosipVerticleManager {
 		return EMPTY_STRING;
 	}
 
+	@Override
+	public Integer getMaxEventLoopExecutionTime() {
+		return 3;
+	}
 }
