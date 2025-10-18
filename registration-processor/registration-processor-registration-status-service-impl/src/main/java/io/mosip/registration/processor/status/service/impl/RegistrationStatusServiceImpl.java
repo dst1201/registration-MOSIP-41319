@@ -1057,7 +1057,8 @@ public class RegistrationStatusServiceImpl
                 throw new TablenotAccessibleException(
                         PlatformErrorMessages.RPR_RGS_REGISTRATION_TABLE_NOT_ACCESSIBLE.getMessage(), e);
             } finally {
-                transcationStatusService.addRegistrationTransaction(transactionDto);
+				if(!transactionDtoList.isEmpty())
+					transcationStatusService.addRegistrationTransactions(transactionDtoList);
 
                 if(!registrationStatusEntities.isEmpty())
                     registrationStatusDao.saveAll(registrationStatusEntities);
