@@ -532,15 +532,11 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 							"Status used to fetch Records Process " + key + " is " + statusValList);
 
 					ConcurrentLinkedQueue<InternalRegistrationStatusDto> cacheList = packetCacheMap.get(key);
-					int recordFetchCount = processBasedPrefetchLimit - (cacheList != null ?  cacheList.size() : 0);
-					regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), "",
-							"Record Fetch Count for process " + key + " is " + recordFetchCount);
 
 					// Fetch unprocessed packets
-
 					List<String> skipRegIdList = new ArrayList<>(cacheList != null && !cacheList.isEmpty() ? cacheList.stream().map(e -> e.getRegistrationId()).collect(Collectors.toList()) : Collections.emptyList());
 
-					return registrationStatusService.getUnProcessedPackets(processList, recordFetchCount, elapseTime,
+					return registrationStatusService.getUnProcessedPackets(processList, processBasedPrefetchLimit, elapseTime,
 							reprocessCount, trnStatusList, reprocessExcludeStageNames, statusValList)
 							.thenAccept(result -> {
 								regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), "",
