@@ -571,6 +571,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 
 	private List<InternalRegistrationStatusDto> fetchUnprocessedPacketFromCache(LinkedHashMap<ProcessAllocation, Integer> requiredCountMap, int fetchCount) {
 		int previousBalanceCount = 0;
+		int emptyCacheCount = 0;
 		List<InternalRegistrationStatusDto>  reprocessorPacketList = new ArrayList<>();
 
 		for(Map.Entry<ProcessAllocation, Integer> entry :  requiredCountMap.entrySet()) {
@@ -592,13 +593,14 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 				reprocessorPacketList.addAll(fetchedPackets);
 				previousBalanceCount = Math.max(0, requiredCount-fetchedPackets.size());
 			} else {
+				emptyCacheCount++;
 				previousBalanceCount = requiredCount;
 			}
 			regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), "",
 					key + "Count to be moved to next process " + previousBalanceCount);
 		}
 
-		if(reprocessorPacketList.size() < fetchCount)
+		if((reprocessorPacketList.size() < fetchCount) && (requiredCountMap.size() != emptyCacheCount))
 			reprocessorPacketList.addAll(fetchUnprocessedPacketFromCache(requiredCountMap, fetchCount));
 
 		return reprocessorPacketList;
