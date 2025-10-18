@@ -245,6 +245,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 	 */
 	@Override
 	public MessageDTO process(MessageDTO object) {
+		Long startTime = System.currentTimeMillis();
 		List<InternalRegistrationStatusDto> reprocessorDtoList = null;
 		LogDescription description = new LogDescription();
 		List<String> trnStatusList = new ArrayList<>();
@@ -412,6 +413,8 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 					moduleId, moduleName, ridSb.toString());
 		}
 
+		regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(),
+				null, "Total Time taken for Reprocessor Batch End " + ((System.currentTimeMillis() - startTime)/1000) );
 		return object;
 	}
 
