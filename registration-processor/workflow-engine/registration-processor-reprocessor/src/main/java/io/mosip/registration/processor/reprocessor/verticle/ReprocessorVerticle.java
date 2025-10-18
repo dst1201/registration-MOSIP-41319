@@ -601,7 +601,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 		}
 
 		if((reprocessorPacketList.size() < fetchCount) && (requiredCountMap.size() != emptyCacheCount))
-			reprocessorPacketList.addAll(fetchUnprocessedPacketFromCache(requiredCountMap, fetchCount));
+			reprocessorPacketList.addAll(fetchUnprocessedPacketFromCache(requiredCountMap, fetchCount-reprocessorPacketList.size()));
 
 		return reprocessorPacketList;
 	}
