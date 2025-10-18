@@ -598,6 +598,9 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 					key + "Count to be moved to next process " + previousBalanceCount);
 		}
 
+		if(reprocessorPacketList.size() < fetchCount)
+			reprocessorPacketList.addAll(fetchUnprocessedPacketFromCache(requiredCountMap, fetchCount));
+
 		return reprocessorPacketList;
 	}
 
