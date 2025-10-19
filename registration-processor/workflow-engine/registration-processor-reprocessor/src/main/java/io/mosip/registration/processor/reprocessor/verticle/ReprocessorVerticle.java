@@ -394,7 +394,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 							"Error in Packet Processing -- ",
 							ex.getMessage(), ExceptionUtils.getStackTrace(ex));
 
-				});;
+				}).join();;
 			}
 		} catch (TablenotAccessibleException e) {
 			isBatchSuccessful = false;
