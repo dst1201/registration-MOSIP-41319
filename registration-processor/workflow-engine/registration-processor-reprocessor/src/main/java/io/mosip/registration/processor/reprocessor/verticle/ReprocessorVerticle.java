@@ -140,7 +140,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 			Math.max(2, Runtime.getRuntime().availableProcessors()),
 			Math.max(2, Runtime.getRuntime().availableProcessors()),
 			60L, TimeUnit.SECONDS,
-			new ArrayBlockingQueue<>(1000), // bounded queue
+			new ArrayBlockingQueue<>(5000), // bounded queue
 			new ThreadPoolExecutor.CallerRunsPolicy()
 	);
 
