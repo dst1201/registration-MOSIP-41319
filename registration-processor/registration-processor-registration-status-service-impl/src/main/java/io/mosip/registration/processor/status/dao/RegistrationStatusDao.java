@@ -80,6 +80,17 @@ public class RegistrationStatusDao {
 	}
 
 	/**
+	 * Save.
+	 *
+	 * @param registrationStatusEntities
+	 *            the registration status entity list
+	 * @return the registration status entity
+	 */
+	public List<RegistrationStatusEntity> saveAll(List<RegistrationStatusEntity> registrationStatusEntities) {
+		return registrationStatusRepositary.saveAll(registrationStatusEntities);
+	}
+
+	/**
 	 * Update.
 	 *
 	 * @param registrationStatusEntity
