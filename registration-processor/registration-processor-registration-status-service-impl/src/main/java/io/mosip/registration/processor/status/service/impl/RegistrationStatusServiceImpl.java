@@ -44,6 +44,8 @@ import io.mosip.registration.processor.status.service.RegistrationStatusService;
 import io.mosip.registration.processor.status.service.TransactionService;
 import io.mosip.registration.processor.status.utilities.RegistrationExternalStatusUtility;
 
+import javax.transaction.Transactional;
+
 /**
  * The Class RegistrationStatusServiceImpl.
  */
@@ -270,6 +272,7 @@ public class RegistrationStatusServiceImpl
 		updateRegistrationStatus(registrationStatusDto, moduleId, moduleName, true);
 	}
 
+	@Transactional
 	private void updateRegistrationStatus(InternalRegistrationStatusDto registrationStatusDto, String moduleId,
 			String moduleName, boolean updateStatusCode) {
 		regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.USERID.toString(),
@@ -304,7 +307,7 @@ public class RegistrationStatusServiceImpl
 				if (entity.getStatusCode() == null) {
 					entity.setStatusCode(registrationStatusDto.getStatusCode());
 				}
-				registrationStatusDao.save(entity);
+				registrationStatusDao.updateForReprocessor(entity);
 				isTransactionSuccessful = true;
 				description.setMessage("Updated registration status successfully");
 //			}

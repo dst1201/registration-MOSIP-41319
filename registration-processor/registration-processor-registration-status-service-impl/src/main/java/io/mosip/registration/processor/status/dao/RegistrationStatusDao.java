@@ -103,6 +103,30 @@ public class RegistrationStatusDao {
 	}
 
 	/**
+	 * Update.
+	 *
+	 * @param registrationStatusEntity
+	 *            the registration status entity
+	 * @return the registration status entity
+	 */
+	public int updateForReprocessor(RegistrationStatusEntity registrationStatusEntity) {
+		return registrationStatusRepositary.updateRegistrationStatusFull(
+				registrationStatusEntity.getRegId(),
+				registrationStatusEntity.getLatestTransactionStatusCode(),
+				registrationStatusEntity.getLatestTransactionTypeCode(),
+				registrationStatusEntity.getStatusComment(),
+				registrationStatusEntity.getStatusCode(),
+				registrationStatusEntity.getUpdatedBy(),
+				registrationStatusEntity.getRegProcessRetryCount(),
+				registrationStatusEntity.getLatestTransactionTimes(),
+				registrationStatusEntity.getLastSuccessStageName(),
+				registrationStatusEntity.getDeletedDateTime(),
+				registrationStatusEntity.getCreateDateTime(),
+				registrationStatusEntity.getUpdateDateTime()
+		);
+	}
+
+	/**
 	 * Find by id.
 	 *
 	 * @param rid
