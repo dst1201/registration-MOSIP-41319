@@ -272,7 +272,6 @@ public class RegistrationStatusServiceImpl
 		updateRegistrationStatus(registrationStatusDto, moduleId, moduleName, true);
 	}
 
-	@Transactional
 	private void updateRegistrationStatus(InternalRegistrationStatusDto registrationStatusDto, String moduleId,
 			String moduleName, boolean updateStatusCode) {
 		regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.USERID.toString(),

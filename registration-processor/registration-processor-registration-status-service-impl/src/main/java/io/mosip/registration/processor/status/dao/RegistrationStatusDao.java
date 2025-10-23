@@ -16,6 +16,8 @@ import io.mosip.registration.processor.status.code.RegistrationStatusCode;
 import io.mosip.registration.processor.status.entity.RegistrationStatusEntity;
 import io.mosip.registration.processor.status.repositary.RegistrationRepositary;
 
+import javax.transaction.Transactional;
+
 /**
  * The Class RegistrationStatusDao.
  *
@@ -109,6 +111,7 @@ public class RegistrationStatusDao {
 	 *            the registration status entity
 	 * @return the registration status entity
 	 */
+	@Transactional
 	public int updateForReprocessor(RegistrationStatusEntity registrationStatusEntity) {
 		return registrationStatusRepositary.updateRegistrationStatusFull(
 				registrationStatusEntity.getId().getWorkflowInstanceId(),
