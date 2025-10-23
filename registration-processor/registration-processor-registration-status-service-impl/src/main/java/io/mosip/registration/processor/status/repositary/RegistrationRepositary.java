@@ -85,9 +85,9 @@ public interface RegistrationRepositary<T extends BaseRegistrationEntity, E> ext
 			"r.deletedDateTime = :deletedDateTime, " +
 			"r.createDateTime = :createDateTime, " +
 			"r.updateDateTime = :updateDateTime " +
-			"WHERE r.regId = :regId")
+			"WHERE r.id.workflowInstanceId = :workflowInstanceId")
 	int updateRegistrationStatusFull(
-			@Param("regId") String registrationId,
+			@Param("workflowInstanceId") String workflowInstanceId,
 			@Param("latestTransactionStatusCode") String latestTransactionStatusCode,
 			@Param("latestTransactionTypeCode") String latestTransactionTypeCode,
 			@Param("statusComment") String statusComment,

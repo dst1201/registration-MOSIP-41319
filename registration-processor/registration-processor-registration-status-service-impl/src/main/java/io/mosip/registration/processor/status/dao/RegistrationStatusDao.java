@@ -111,7 +111,7 @@ public class RegistrationStatusDao {
 	 */
 	public int updateForReprocessor(RegistrationStatusEntity registrationStatusEntity) {
 		return registrationStatusRepositary.updateRegistrationStatusFull(
-				registrationStatusEntity.getRegId(),
+				registrationStatusEntity.getId().getWorkflowInstanceId(),
 				registrationStatusEntity.getLatestTransactionStatusCode(),
 				registrationStatusEntity.getLatestTransactionTypeCode(),
 				registrationStatusEntity.getStatusComment(),
