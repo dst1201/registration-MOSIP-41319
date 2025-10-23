@@ -298,7 +298,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 			}
 
 			regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), "",
-					"Reprocessor Total Packets Fetched " + reprocessorDtoList.size());
+					"THAM - Reprocessor Total Packets Fetched " + reprocessorDtoList.size());
 
 			if (!CollectionUtils.isEmpty(reprocessorDtoList)) {
 				reprocessorDtoList.forEach(dto -> {
@@ -373,7 +373,7 @@ public class ReprocessorVerticle extends MosipVerticleAPIManager {
 				});
 
 				regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(),
-						null, "Total Time taken for Reprocessor to send messages " + ((System.currentTimeMillis() - startTime)/1000) );
+						null, "THAM - Total Time taken for Reprocessor to send messages " + ((System.currentTimeMillis() - startTime)/1000) );
 
 			}
 		} catch (TablenotAccessibleException e) {
