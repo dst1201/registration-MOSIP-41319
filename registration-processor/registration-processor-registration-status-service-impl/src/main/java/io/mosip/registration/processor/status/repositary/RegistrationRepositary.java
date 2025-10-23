@@ -79,7 +79,7 @@ public interface RegistrationRepositary<T extends BaseRegistrationEntity, E> ext
 			"r.statusComment = :statusComment, " +
 			"r.statusCode = :statusCode, " +
 			"r.updatedBy = :updatedBy, " +
-			"r.reProcessRetryCount = :reProcessRetryCount, " +
+			"r.regProcessRetryCount = :regProcessRetryCount, " +
 			"r.latestTransactionTimes = :latestTransactionTimes, " +
 			"r.lastSuccessStageName = :lastSuccessStageName, " +
 			"r.deletedDateTime = :deletedDateTime, " +
@@ -93,7 +93,7 @@ public interface RegistrationRepositary<T extends BaseRegistrationEntity, E> ext
 			@Param("statusComment") String statusComment,
 			@Param("statusCode") String statusCode,
 			@Param("updatedBy") String updatedBy,
-			@Param("reProcessRetryCount") Integer reProcessRetryCount,
+			@Param("regProcessRetryCount") Integer reProcessRetryCount,
 			@Param("latestTransactionTimes") LocalDateTime latestTransactionTimes,
 			@Param("lastSuccessStageName") String lastSuccessStageName,
 			@Param("deletedDateTime") LocalDateTime deletedDateTime,
