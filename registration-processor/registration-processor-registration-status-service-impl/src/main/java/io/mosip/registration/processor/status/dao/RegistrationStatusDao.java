@@ -16,8 +16,6 @@ import io.mosip.registration.processor.status.code.RegistrationStatusCode;
 import io.mosip.registration.processor.status.entity.RegistrationStatusEntity;
 import io.mosip.registration.processor.status.repositary.RegistrationRepositary;
 
-import javax.transaction.Transactional;
-
 /**
  * The Class RegistrationStatusDao.
  *
@@ -82,17 +80,6 @@ public class RegistrationStatusDao {
 	}
 
 	/**
-	 * Save.
-	 *
-	 * @param registrationStatusEntities
-	 *            the registration status entity list
-	 * @return the registration status entity
-	 */
-	public List<RegistrationStatusEntity> saveAll(List<RegistrationStatusEntity> registrationStatusEntities) {
-		return registrationStatusRepositary.saveAll(registrationStatusEntities);
-	}
-
-	/**
 	 * Update.
 	 *
 	 * @param registrationStatusEntity
@@ -102,31 +89,6 @@ public class RegistrationStatusDao {
 	public RegistrationStatusEntity update(RegistrationStatusEntity registrationStatusEntity) {
 
 		return registrationStatusRepositary.save(registrationStatusEntity);
-	}
-
-	/**
-	 * Update.
-	 *
-	 * @param registrationStatusEntity
-	 *            the registration status entity
-	 * @return the registration status entity
-	 */
-	@Transactional
-	public int updateForReprocessor(RegistrationStatusEntity registrationStatusEntity) {
-		return registrationStatusRepositary.updateRegistrationStatusFull(
-				registrationStatusEntity.getId().getWorkflowInstanceId(),
-				registrationStatusEntity.getLatestTransactionStatusCode(),
-				registrationStatusEntity.getLatestTransactionTypeCode(),
-				registrationStatusEntity.getStatusComment(),
-				registrationStatusEntity.getStatusCode(),
-				registrationStatusEntity.getUpdatedBy(),
-				registrationStatusEntity.getRegProcessRetryCount(),
-				registrationStatusEntity.getLatestTransactionTimes(),
-				registrationStatusEntity.getLastSuccessStageName(),
-				registrationStatusEntity.getDeletedDateTime(),
-				registrationStatusEntity.getCreateDateTime(),
-				registrationStatusEntity.getUpdateDateTime()
-		);
 	}
 
 	/**

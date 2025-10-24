@@ -6,7 +6,6 @@ package io.mosip.registration.processor.status.repositary;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -71,35 +70,6 @@ public interface RegistrationRepositary<T extends BaseRegistrationEntity, E> ext
 
 	@Query(value ="SELECT * FROM registration r WHERE r.process IN :processList AND r.latest_trn_status_code IN :status AND r.reg_process_retry_count<=:reprocessCount AND r.latest_trn_dtimes <:timeDifference AND r.status_code IN :statusCodes AND r.reg_stage_name NOT IN :excludeStageNames order by r.latest_trn_dtimes LIMIT :fetchSize ", nativeQuery = true)
 	public List<RegistrationStatusEntity> getUnProcessedPacketsWithSpecificStatus(@Param("processList") List<String> processes, @Param("status") List<String> status,@Param("reprocessCount") Integer reprocessCount,@Param("timeDifference") LocalDateTime timeDifference,@Param("statusCodes") List<String> statusCodes,@Param("fetchSize") Integer fetchSize,@Param("excludeStageNames") List<String> excludeStageNames);
-
-	@Modifying
-	@Query("UPDATE RegistrationStatusEntity r " +
-			"SET r.latestTransactionStatusCode = :latestTransactionStatusCode, " +
-			"r.latestTransactionTypeCode = :latestTransactionTypeCode, " +
-			"r.statusComment = :statusComment, " +
-			"r.statusCode = :statusCode, " +
-			"r.updatedBy = :updatedBy, " +
-			"r.regProcessRetryCount = :regProcessRetryCount, " +
-			"r.latestTransactionTimes = :latestTransactionTimes, " +
-			"r.lastSuccessStageName = :lastSuccessStageName, " +
-			"r.deletedDateTime = :deletedDateTime, " +
-			"r.createDateTime = :createDateTime, " +
-			"r.updateDateTime = :updateDateTime " +
-			"WHERE r.id.workflowInstanceId = :workflowInstanceId")
-	int updateRegistrationStatusFull(
-			@Param("workflowInstanceId") String workflowInstanceId,
-			@Param("latestTransactionStatusCode") String latestTransactionStatusCode,
-			@Param("latestTransactionTypeCode") String latestTransactionTypeCode,
-			@Param("statusComment") String statusComment,
-			@Param("statusCode") String statusCode,
-			@Param("updatedBy") String updatedBy,
-			@Param("regProcessRetryCount") Integer reProcessRetryCount,
-			@Param("latestTransactionTimes") LocalDateTime latestTransactionTimes,
-			@Param("lastSuccessStageName") String lastSuccessStageName,
-			@Param("deletedDateTime") LocalDateTime deletedDateTime,
-			@Param("createDateTime") LocalDateTime createDateTime,
-			@Param("updateDateTime") LocalDateTime updateDateTime
-	);
 
 }
 
